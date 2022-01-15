@@ -18,15 +18,12 @@ spec:
         - name: wt-app
           image: wireguardtransmission
           imagePullPolicy: Always
-          
           ports: 
             - containerPort: 9091
             - containerPort: 51413
           volumeMounts:
             - mountPath: /dev/net/tun
               name: dev-net-tun
-              securityContext:
-              privileged: true  
             - name: wt-downloads
               mountPath: /transmission/downloads 
             - name: wt-config
