@@ -13,8 +13,7 @@ spec:
     metadata:
       labels: 
         app: wt-app
-    spec:
-      privileged: true    
+    spec:   
       containers:
         - name: wt-app
           image: teomarcdhio/wgtr:1
@@ -23,6 +22,7 @@ spec:
             - containerPort: 9091
             - containerPort: 51413
           securityContext:
+             privileged: true
              capabilities:
                add:
                  - NET_ADMIN
