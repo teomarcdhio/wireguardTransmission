@@ -22,8 +22,8 @@ spec:
             - containerPort: 9091
             - containerPort: 51413
           volumeMounts:
-            - mountPath: /dev/net/tun
-              name: dev-net-tun
+            # - mountPath: /dev/net/tun
+            #   name: dev-net-tun
             - name: wt-downloads
               mountPath: /transmission/downloads 
             - name: wt-config
