@@ -58,10 +58,9 @@ spec:
 apiVersion: v1
 kind: Service 
 metadata:
-  name: frontend-nginxapp-loadbalancer-service
+  name: wt-service
   labels:
-    app: frontend-nginxapp
-    tier: frontend  
+    app: wt-service 
 spec:
   type: LoadBalancer # ClusterIp, # NodePort
   selector:
