@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata:
+  name: wireguardtransmission
+  labels:
+    app: wt-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wt-app
+  template:  
+    metadata:
+      labels: 
+        app: wt-app
+    spec:    
+      containers:
+        - name: wt-app
+          image: wireguardtransmission
+          imagePullPolicy: Always
+          ports: 
+            - containerPort: 8080           
+          env:
+            - name: DB_HOSTNAME
+              value: "mysql"            
+            - name: DB_PORT
+              value: "3306"            
+            - name: DB_NAME
+              value: "webappdb"            
+            - name: DB_USERNAME
+              value: "root"            
+            - name: DB_PASSWORD
+              value: "dbpassword11"
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-db-password
+                  key: db-password   
