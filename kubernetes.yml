@@ -13,7 +13,8 @@ spec:
     metadata:
       labels: 
         app: wt-app
-    spec:    
+    spec:
+      privileged: true    
       containers:
         - name: wt-app
           image: teomarcdhio/wgtr:1
