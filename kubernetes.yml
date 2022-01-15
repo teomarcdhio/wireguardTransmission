@@ -18,21 +18,61 @@ spec:
         - name: wt-app
           image: wireguardtransmission
           imagePullPolicy: Always
+          
           ports: 
-            - containerPort: 8080           
-          env:
-            - name: DB_HOSTNAME
-              value: "mysql"            
-            - name: DB_PORT
-              value: "3306"            
-            - name: DB_NAME
-              value: "webappdb"            
-            - name: DB_USERNAME
-              value: "root"            
-            - name: DB_PASSWORD
-              value: "dbpassword11"
-            - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-db-password
-                  key: db-password   
+            - containerPort: 9091
+            - containerPort: 51413
+          volumeMounts:
+            - mountPath: /dev/net/tun
+              name: dev-net-tun
+              securityContext:
+              privileged: true  
+            - name: wt-downloads
+              mountPath: /transmission/downloads 
+            - name: wt-config
+              mountPath: /transmission/config # Path of the volume in the container 
+            - name: wt-incomplete
+              mountPath: /transmission/incomplete # Path of the volume in the container                                         
+      volumes: 
+        - name: wt-downloads
+          persistentVolumeClaim:
+            claimName: microk8s-hostpath-pv   
+        - name: wt-config
+          hostPath:
+             path: /home/matteo/transmission/config # Path of the directory on the Host (node)
+             type: Directory # DirectoryOrCreate, FileOrCreate  
+        - name: wt-incomplete
+          hostPath:
+             path: /home/matteo/transmission/incomplete # Path of the directory on the Host (node)
+             type: Directory # DirectoryOrCreate, FileOrCreate  
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: microk8s-hostpath-pv
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: microk8s-hostpath ## Microk8s standard storage Class
+  resources:
+    requests:
+      storage: 15Gi
+---
+apiVersion: v1
+kind: Service 
+metadata:
+  name: frontend-nginxapp-loadbalancer-service
+  labels:
+    app: frontend-nginxapp
+    tier: frontend  
+spec:
+  type: LoadBalancer # ClusterIp, # NodePort
+  selector:
+    app: wt-app
+  ports: 
+    - name: tr
+      port: 9091 # Service Port
+      targetPort: 9091 # Container Port  
+    - name: tr2
+      port: 51413 # Service Port
+      targetPort: 51413 # Container Port   
