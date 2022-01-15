@@ -39,15 +39,15 @@ spec:
         - name: wt-config
           hostPath:
              path: /home/matteo/transmission/config # Path of the directory on the Host (node)
-             type: Directory # DirectoryOrCreate, FileOrCreate  
+             type: DirectoryOrCreate # DirectoryOrCreate, FileOrCreate  
         - name: wt-incomplete
           hostPath:
              path: /home/matteo/transmission/incomplete # Path of the directory on the Host (node)
-             type: Directory # DirectoryOrCreate, FileOrCreate  
+             type: DirectoryOrCreate # DirectoryOrCreate, FileOrCreate  
         - name: wg-config
           hostPath:
              path: /home/matteo/wg/wg0.conf # Path of the directory on the Host (node)
-             type: Directory # DirectoryOrCreate, FileOrCreate 
+             type: FileOrCreate # DirectoryOrCreate, FileOrCreate 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
