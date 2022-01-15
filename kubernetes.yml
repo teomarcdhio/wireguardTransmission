@@ -16,7 +16,7 @@ spec:
     spec:    
       containers:
         - name: wt-app
-          image: localhost/wireguardtransmission
+          image: wireguardtransmission:local
           imagePullPolicy: Always
           ports: 
             - containerPort: 9091
