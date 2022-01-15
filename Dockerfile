@@ -6,7 +6,7 @@ RUN apk --no-cache add transmission-daemon \
     && rm -rf /tmp/*
 RUN apk --no-cache add curl
 RUN apk --no-cache add wireguard-tools
-ADD wireguard/wg0.conf /etc/wireguard/
+ADD wireguard/wg0sample.conf /etc/wireguard/
 ADD startup.sh /
 RUN chmod -R 1777 /startup.sh \
     && chmod -R 1777 /etc/wireguard/*

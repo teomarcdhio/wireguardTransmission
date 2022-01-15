@@ -16,7 +16,7 @@ spec:
     spec:    
       containers:
         - name: wt-app
-          image: wireguardtransmission:latest
+          image: teomarcdhio/wrtr:latest
           imagePullPolicy: Always
           ports: 
             - containerPort: 9091
@@ -29,7 +29,9 @@ spec:
             - name: wt-config
               mountPath: /transmission/config # Path of the volume in the container 
             - name: wt-incomplete
-              mountPath: /transmission/incomplete # Path of the volume in the container                                         
+              mountPath: /transmission/incomplete # Path of the volume in the container  
+            - name: wg-config
+              mountPath: /etc/wireguard/wg0.conf # Path of the volume in the container                                        
       volumes: 
         - name: wt-downloads
           persistentVolumeClaim:
@@ -42,6 +44,10 @@ spec:
           hostPath:
              path: /home/matteo/transmission/incomplete # Path of the directory on the Host (node)
              type: Directory # DirectoryOrCreate, FileOrCreate  
+        - name: wg-config
+          hostPath:
+             path: /home/matteo/wg/wg0.conf # Path of the directory on the Host (node)
+             type: Directory # DirectoryOrCreate, FileOrCreate 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
