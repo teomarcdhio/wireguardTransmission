@@ -22,8 +22,8 @@ spec:
             - containerPort: 9091
             - containerPort: 51413
           volumeMounts:
-            # - mountPath: /dev/net/tun
-            #   name: dev-net-tun
+            - name: dev-net-tun
+              mountPath: /dev/net/tun 
             - name: wt-downloads
               mountPath: /transmission/downloads 
             - name: wt-config
@@ -47,7 +47,11 @@ spec:
         - name: wg-config
           hostPath:
              path: /home/matteo/wg/wg0.conf # Path of the directory on the Host (node)
-             type: FileOrCreate # DirectoryOrCreate, FileOrCreate 
+             type: FileOrCreate # DirectoryOrCreate, FileOrCreate
+        - name: dev-net-tun
+          hostPath:
+             path: /dev/net/tun # Path of the directory on the Host (node)
+             type: Directory # DirectoryOrCreate, FileOrCreate
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
