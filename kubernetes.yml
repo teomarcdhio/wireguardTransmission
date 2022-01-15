@@ -51,7 +51,7 @@ spec:
         - name: dev-net-tun
           hostPath:
              path: /dev/net/tun # Path of the directory on the Host (node)
-             type: Directory # DirectoryOrCreate, FileOrCreate
+             type: DirectoryOrCreate # DirectoryOrCreate, FileOrCreate
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
