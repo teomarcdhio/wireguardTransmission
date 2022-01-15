@@ -16,7 +16,7 @@ spec:
     spec:    
       containers:
         - name: wt-app
-          image: teomarcdhio/wrtr:latest
+          image: teomarcdhio/wgtr:latest
           imagePullPolicy: Always
           ports: 
             - containerPort: 9091
